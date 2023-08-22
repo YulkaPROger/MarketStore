@@ -68,4 +68,5 @@ abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
   }
 
   S doAction(A action, S? oldState);
+
 }
