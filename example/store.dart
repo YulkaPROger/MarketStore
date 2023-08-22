@@ -39,13 +39,4 @@ void main() {
 
   store.dispatch(Close());
 
-  // MarketStateWidget(
-  //   build: (BuildContext context, AuthState state) {
-  //     if (state is InitialState){
-  //
-  //     }
-  //     return Text("ghhb");
-  //   },
-  // );
-
 }

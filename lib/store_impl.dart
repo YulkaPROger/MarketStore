@@ -1,13 +1,6 @@
 import 'dart:async';
-
+import 'dart:developer';
 import 'package:market_store/store.dart';
-
-// mixin Func<E extends MarketEffect>{
-//   Stream<E> observeEffect() {
-//     print('observeEffect');
-//     return _effect.stream;
-//   }
-// }
 
 abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
     E extends BaseMarketStore> extends MarketStore<S, A, E> {
@@ -45,7 +38,7 @@ abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
     print('initial listen stream');
     _action.stream.listen((action) {
       print('listen action $action');
-      // log("listen action $action", name: "MarketStore");
+      log("listen action $action", name: "MarketStore");
 
       /// листенер не срабатывает
       _dispatchAction(action);
@@ -66,6 +59,8 @@ abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
 
         _state.add(newState);
         _oldState = newState;
+      } else {
+        print("newState equals oldState");
       }
 
     } catch (_) {
