@@ -2,6 +2,13 @@ import 'dart:async';
 
 import 'package:market_store/store.dart';
 
+// mixin Func<E extends MarketEffect>{
+//   Stream<E> observeEffect() {
+//     print('observeEffect');
+//     return _effect.stream;
+//   }
+// }
+
 abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
     E extends BaseMarketStore> extends MarketStore<S, A, E> {
   final StreamController<S?> _state = StreamController.broadcast(sync: true);
@@ -9,7 +16,7 @@ abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
   final StreamController<A> _action = StreamController(sync: true);
 
   final StreamController<E> _effect = StreamController.broadcast(sync: true);
-  S? _oldState = null;
+  S? _oldState;
 
   @override
   Stream<E> observeEffect() {
@@ -41,11 +48,11 @@ abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
       // log("listen action $action", name: "MarketStore");
 
       /// листенер не срабатывает
-      dispatchAction(action);
+      _dispatchAction(action);
     });
   }
 
-  dispatchAction(A action) async {
+  _dispatchAction(A action) async {
     print("start action $action");
     // log("start action $action", name: "MarketStore");
     try {

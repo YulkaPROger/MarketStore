@@ -1,17 +1,38 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'dart:async';
 
-import 'package:market_store/store.dart';
+import 'package:test/test.dart';
 
 import '../example/AuthStore.dart';
 
 void main() {
-  test('adds one to input values', () {
-    final authStore = AuthStore();
+  group("description", () {
+    test("description", () {
+      final testSubject = StreamController<int>();
 
+      testSubject.add(1);
 
+      expect(testSubject.stream, emitsInOrder([1]));
+    });
+    test(
+      'Initial state',
+      () async {
+        final authStore = AuthStore();
 
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);
+        authStore.observeState().listen((event) {
+          expectAsync1(
+                (event) {
+              expect(event, const BaseState(name: "name"));
+            },
+          );
+
+        });
+
+        // expect(
+        //     streamController.stream,
+        //     emitsInOrder([
+        //       isA<InitialState>(),
+        //     ]));
+      },
+    );
   });
 }
