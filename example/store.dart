@@ -1,9 +1,9 @@
 import 'AuthStore.dart';
 
 void main() {
-  final st = AuthStore();
+  final store = AuthStore();
 
-  st.observeState().listen((state) {
+  store.observeState().listen((state) {
     switch (state) {
       case InitialState():
         print('ПОДПИСЧИК initial state');
@@ -18,10 +18,10 @@ void main() {
     print('observe state $state');
   });
 
-  st.dispatch(GetInfo());
-  st.dispatch(ChangeState("hello"));
+  store.dispatch(GetInfo());
+  store.dispatch(ChangeState("hello"));
 
-  st.observeState().listen((state) {
+  store.observeState().listen((state) {
     /// НА ЭТОТ СЛУЧАЙ НАПИСАТЬ ТЕСТЫ!!!
     switch (state) {
       case InitialState():
@@ -37,7 +37,7 @@ void main() {
     print('observe state $state');
   });
 
-  st.dispatch(Close());
+  store.dispatch(Close());
 
   // MarketStateWidget(
   //   build: (BuildContext context, AuthState state) {
