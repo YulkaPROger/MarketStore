@@ -13,19 +13,19 @@ abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
 
   @override
   Stream<E> observeEffect() {
-    print('observeEffect');
+    // print('observeEffect');
     return _effect.stream;
   }
 
   @override
   Stream<S?> observeState() {
-    print('observeState');
+    // print('observeState');
     return _state.stream;
   }
 
   @override
   dispatch(A newAction) {
-    print('dispatch $newAction');
+    // print('dispatch $newAction');
     _action.add(newAction);
   }
 
@@ -35,37 +35,36 @@ abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
   }
 
   StoreImpl() {
-    print('initial listen stream');
+    // print('initial listen stream');
     _action.stream.listen((action) {
-      print('listen action $action');
+      // print('listen action $action');
       log("listen action $action", name: "MarketStore");
-
-      /// листенер не срабатывает
       _dispatchAction(action);
     });
   }
 
   _dispatchAction(A action) async {
-    print("start action $action");
-    // log("start action $action", name: "MarketStore");
+    // print("start action $action");
+    log("start action $action", name: "MarketStore");
     try {
 
       final newState = doAction(action, _oldState);
-      print('new state $newState');
+      // print('new state $newState');
 
       if (newState != _oldState) {
-        print("end newState: $newState");
-        // log("end newState: $newState", name: "MarketStore");
+        // print("end newState: $newState");
+        log("end newState: $newState", name: "MarketStore");
 
         _state.add(newState);
         _oldState = newState;
       } else {
-        print("newState equals oldState");
+        // print("newState equals oldState");
+        log("newState equals oldState", name: "MarketStore");
       }
 
     } catch (_) {
-      print("failure dispatch $action");
-      // log("failure dispatch $action", name: "MarketStore");
+      // print("failure dispatch $action");
+      log("failure dispatch $action", name: "MarketStore");
     }
   }
 
