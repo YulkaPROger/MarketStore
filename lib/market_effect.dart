@@ -1,34 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:market_store/store.dart' as market_store;
+import 'package:market_store/store.dart';
+import 'market_state_widget.dart';
 
-class MarketEffectWidget<M extends market_store.MarketEffect> extends StatefulWidget {
-  const MarketEffectWidget({super.key});
+typedef MarketStateCallback = void Function(MarketEffect);
 
-  @override
-  State<StatefulWidget> createState() => _MarketEffectWidgetState<M>();
-}
+class ObserveEffectWidget<M extends MarketState> extends StatelessWidget {
+  final MarketStateWidget stateWidget;
+  final MarketStateCallback onChangeEffect;
 
-class _MarketEffectWidgetState<M extends market_store.MarketEffect> extends State<MarketEffectWidget> {
+  const ObserveEffectWidget(
+      {super.key, required this.stateWidget, required this.onChangeEffect});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return StreamBuilder(
+      stream: stateWidget.store.observeEffect(),
+      builder: (context, snapshot) {
+        if (snapshot.data != null) {
+          onChangeEffect(snapshot.data! as MarketEffect); /// ГАВНО!!!
+        }
+        return const SizedBox();
+      },
+    );
   }
-
-  @override
-  void initState() {
-    super.initState();
-
-
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-
-  }
-
-
 }
