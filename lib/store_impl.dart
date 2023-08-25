@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:market_store/store.dart';
 
-abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
-    E extends BaseMarketStore> extends MarketStore<S, A, E> {
+abstract class StoreImpl<S extends MarketState, A extends MarketAction,
+    E extends MarketEffect> extends MarketStore<S, A, E> {
   final StreamController<S?> _state = StreamController.broadcast(sync: true);
 
   final StreamController<A> _action = StreamController(sync: true);
@@ -68,6 +68,6 @@ abstract class StoreImpl<S extends BaseMarketStore, A extends BaseMarketStore,
     }
   }
 
-  S doAction(A action, S? oldState);
+  S? doAction(A action, S? oldState);
 
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:market_store/store.dart';
-import 'market_state_widget.dart';
+import 'market_store_widget.dart';
 
 typedef MarketStateCallback = void Function(MarketEffect);
 
@@ -17,7 +17,7 @@ class ObserveEffectWidget<M extends MarketState> extends StatelessWidget {
       stream: stateWidget.store.observeEffect(),
       builder: (context, snapshot) {
         if (snapshot.data != null) {
-          onChangeEffect(snapshot.data! as MarketEffect); /// ГАВНО!!!
+          onChangeEffect(snapshot.data!);
         }
         return const SizedBox();
       },

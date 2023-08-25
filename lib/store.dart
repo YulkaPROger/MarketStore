@@ -2,8 +2,8 @@ library market_store;
 
 import 'dart:async';
 
-abstract class MarketStore<S extends BaseMarketStore, A extends BaseMarketStore,
-    E extends BaseMarketStore>  {
+abstract class MarketStore<S extends MarketState, A extends MarketAction,
+    E extends MarketEffect>  {
   // StreamController<S> get state;
   // StreamController<E> get effect;
   // StreamController<A> get action;

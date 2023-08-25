@@ -4,7 +4,7 @@ import 'package:market_store/store_impl.dart';
 ///СТОР
 class AuthStore extends StoreImpl<AuthState, AuthAction, AuthEffect> {
   @override
-  AuthState doAction(AuthAction action, AuthState? oldState) {
+  AuthState? doAction(AuthAction action, AuthState? oldState) {
     return switch (action) {
       Initial() => _initial(action, oldState),
       GetInfo() => _getInfo(action, oldState),
@@ -14,22 +14,21 @@ class AuthStore extends StoreImpl<AuthState, AuthAction, AuthEffect> {
   }
 
   _initial(AuthAction action, AuthState? oldState) {
-    print('_initial');
     return InitialState();
   }
 
   _getInfo(AuthAction action, AuthState? oldState) {
-    print('_getInfo');
-    return InitialState();
+    Future.delayed(const Duration(microseconds: 1000), () {
+      dispatch(ChangeState("name"));
+    });
+    return oldState;
   }
 
   _close(AuthAction action, AuthState? oldState) {
-    print('_close');
     return const ErrorState(reason: "Конец ");
   }
 
   _changeState(AuthAction action, AuthState? oldState) {
-    print('_changeState');
     return const BaseState(name: "name");
   }
 

@@ -1,17 +1,29 @@
-import 'package:flutter/cupertino.dart';
-import 'package:market_store/store_impl.dart';
+import 'dart:async';
 
-class MarketStateWidget extends InheritedWidget {
-  final StoreImpl store;
+import 'package:flutter/material.dart';
+import 'package:market_store/store.dart';
+import 'market_store_widget.dart';
 
-  final Widget child;
+typedef MarketStateCallback<M extends MarketState> = void Function(M);
 
-  const MarketStateWidget({super.key, required this.store, required this.child})
-      : super(child: child);
+class ObserveStateWidget<M extends MarketState> extends StatelessWidget {
+  final MarketStateWidget stateWidget;
+  final MarketStateCallback onChangeState;
+
+  const ObserveStateWidget(
+      {super.key, required this.stateWidget, required this.onChangeState});
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
-
-  static MarketStateWidget? of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<MarketStateWidget>();
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: stateWidget.store.observeState(),
+      builder: (context, snapshot) {
+        if (snapshot.data != null) {
+          onChangeState(snapshot.data!);
+        }
+        return const SizedBox();
+      },
+    );
+  }
 }
+
