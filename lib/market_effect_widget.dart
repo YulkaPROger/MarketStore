@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:market_store/store.dart';
 import 'market_store_widget.dart';
 
-typedef MarketStateCallback = void Function(MarketEffect);
+typedef MarketStateCallback<E extends MarketEffect> = void Function(E);
 
-class ObserveEffectWidget<M extends MarketState> extends StatelessWidget {
-  final MarketStateWidget stateWidget;
+class ObserveEffectWidget<M extends MarketStore> extends StatelessWidget {
   final MarketStateCallback onChangeEffect;
 
   const ObserveEffectWidget(
-      {super.key, required this.stateWidget, required this.onChangeEffect});
+      {super.key,  required this.onChangeEffect});
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: stateWidget.store.observeEffect(),
+    final M scope = MarketStateScope.of<M>(context).store;
+
+    return StreamBuilder<MarketEffect>(
+      stream: scope.observeEffect(),
       builder: (context, snapshot) {
+
         if (snapshot.data != null) {
           onChangeEffect(snapshot.data!);
         }
-        return const SizedBox();
+        return const SizedBox.shrink();
       },
     );
   }

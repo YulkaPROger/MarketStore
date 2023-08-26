@@ -1,17 +1,26 @@
-import 'package:flutter/cupertino.dart';
-import 'package:market_store/store.dart';
+import 'package:flutter/material.dart';
 
-class MarketStateWidget<M extends MarketStore> extends InheritedWidget {
-  final M store;
+class MarketStateScope<T> extends InheritedWidget {
+  final T store;
 
-  final Widget child;
+  const MarketStateScope({
+    super.key,
+    required  this.store,
+    required Widget child,
+  }) : super(child: child);
 
-  const MarketStateWidget({super.key, required this.store, required this.child})
-      : super(child: child);
+  static MarketStateScope<T> of<T>(BuildContext context) {
+    final result =maybeOf<T>(context);
+    assert(result != null, 'No MarketStateScope<$T> found in context');
+    return result!;
+  }
+
+  static MarketStateScope<T>? maybeOf<T>(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<MarketStateScope<T>>();
+  }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
-
-  static MarketStateWidget? of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<MarketStateWidget>();
+  bool updateShouldNotify(MarketStateScope oldWidget) {
+    return store != oldWidget.store;
+  }
 }
