@@ -5,13 +5,13 @@ class MarketStateScope<T> extends InheritedWidget {
 
   const MarketStateScope({
     super.key,
-    required  this.store,
+    required this.store,
     required Widget child,
   }) : super(child: child);
 
   static MarketStateScope<T> of<T>(BuildContext context) {
-    final result =maybeOf<T>(context);
-    assert(result == null, 'No MarketStateScope<$T> found in context');
+    final result = maybeOf<T>(context);
+    assert(result != null, 'No MarketStateScope<$T> found in context');
     return result!;
   }
 
