@@ -5,10 +5,10 @@ import 'market_store_widget.dart';
 
 typedef MarketStateCallback<S extends MarketState> = Widget? Function(S);
 
-class ObserveStateWidget<M extends MarketStore> extends StatelessWidget {
+class ObserveStateMarketScope<M extends MarketStore> extends StatelessWidget {
   final MarketStateCallback onChangeState;
 
-  const ObserveStateWidget({super.key, required this.onChangeState});
+  const ObserveStateMarketScope({super.key, required this.onChangeState});
 
   @override
   Widget build(BuildContext context) {
