@@ -11,7 +11,7 @@ class MarketStateScope<T> extends InheritedWidget {
 
   static MarketStateScope<T> of<T>(BuildContext context) {
     final result =maybeOf<T>(context);
-    assert(result != null, 'No MarketStateScope<$T> found in context');
+    assert(result == null, 'No MarketStateScope<$T> found in context');
     return result!;
   }
 
