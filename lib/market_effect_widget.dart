@@ -17,7 +17,9 @@ class ObserveEffectMarketScope<M extends MarketStore> extends StatelessWidget {
     return StreamBuilder<MarketEffect>(
       stream: scope.observeEffect(),
       builder: (context, snapshot) {
-        snapshot.data ?? onChangeEffect(snapshot.data!);
+        if(snapshot.data != null) {
+          onChangeEffect(snapshot.data!);
+        }
         return const SizedBox.shrink();
       },
     );
