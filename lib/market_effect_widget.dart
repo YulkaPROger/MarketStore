@@ -3,7 +3,7 @@ import 'package:market_store/store.dart';
 
 import 'market_store_widget.dart';
 
-typedef MarketStateCallback<E extends MarketEffect> = Widget? Function(E);
+typedef MarketStateCallback<E extends MarketEffect> = void Function(E);
 
 class ObserveEffectMarketScope<M extends MarketStore> extends StatelessWidget {
   final MarketStateCallback onChangeEffect;
@@ -17,10 +17,8 @@ class ObserveEffectMarketScope<M extends MarketStore> extends StatelessWidget {
     return StreamBuilder<MarketEffect>(
       stream: scope.observeEffect(),
       builder: (context, snapshot) {
-        const emptyWidget = SizedBox.shrink();
-        return snapshot.data != null
-            ? onChangeEffect(snapshot.data!) ?? emptyWidget
-            : emptyWidget;
+        snapshot.data ?? onChangeEffect(snapshot.data!);
+        return const SizedBox.shrink();
       },
     );
   }
