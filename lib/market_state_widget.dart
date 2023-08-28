@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:market_store/store.dart';
-
 import 'market_store_widget.dart';
 
-typedef MarketStateCallback<S extends MarketState> = Widget Function(S);
+typedef MarketStateCallback<S extends MarketState> = void Function(S);
 
 class ObserveStateWidget<M extends MarketStore> extends StatelessWidget {
   final MarketStateCallback onChangeState;
 
-  const ObserveStateWidget({super.key, required this.onChangeState});
+  const ObserveStateWidget(
+      {super.key,  required this.onChangeState});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +16,12 @@ class ObserveStateWidget<M extends MarketStore> extends StatelessWidget {
     return StreamBuilder(
       stream: scope.observeState(),
       builder: (context, snapshot) {
-        return snapshot.data != null
-            ? onChangeState(snapshot.data!)
-            : const SizedBox.shrink();
+        if (snapshot.data != null) {
+          onChangeState(snapshot.data!);
+        }
+        return const SizedBox();
       },
     );
   }
 }
+
