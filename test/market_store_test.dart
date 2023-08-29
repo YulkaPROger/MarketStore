@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:test/test.dart';
-
 import '../example/AuthStore.dart';
 
 void main() {
-  group("description", () {
-    test("description", () {
+  group("Запуск всех тестов", () {
+    test("Рабочий тест на потоках", () {
       final testSubject = StreamController<int>();
 
       testSubject.add(1);
@@ -14,24 +12,17 @@ void main() {
       expect(testSubject.stream, emitsInOrder([1]));
     });
     test(
-      'Initial state',
-      () async {
+      'Не рабочий тест на Store',
+      () {
         final authStore = AuthStore();
 
-        authStore.observeState().listen((event) {
-          expectAsync1(
-                (event) {
-              expect(event, const BaseState(name: "name"));
-            },
+        authStore.observeState().listen((event) async {
+          await authStore.dispatch(Initial());
+          expect(
+            authStore.observeState(),
+            emitsInOrder([const BaseState(name: "jgvutf")]),
           );
-
         });
-
-        // expect(
-        //     streamController.stream,
-        //     emitsInOrder([
-        //       isA<InitialState>(),
-        //     ]));
       },
     );
   });
