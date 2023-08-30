@@ -18,11 +18,10 @@ void main() {
     print('observe state $state');
   });
 
-  store.dispatch(GetInfo());
-  store.dispatch(ChangeState("hello"));
+  store.dispatch(GetInfoAction());
+  store.dispatch(ChangeStateAction("hello"));
 
   store.observeState().listen((state) {
-    /// НА ЭТОТ СЛУЧАЙ НАПИСАТЬ ТЕСТЫ!!!
     switch (state) {
       case InitialState():
         print('ЕЩЁ ОДИН ПОДПИСЧИК  initial state');
@@ -37,6 +36,6 @@ void main() {
     print('observe state $state');
   });
 
-  store.dispatch(Close());
+  store.dispatch(CloseAction());
 
 }

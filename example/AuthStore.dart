@@ -5,35 +5,30 @@ class AuthStore extends MarketStoreImpl<AuthState, AuthAction, AuthEffect> {
   @override
   AuthState? doAction(AuthAction action, AuthState? oldState) {
     return switch (action) {
-      Initial() => _initial(action, oldState),
-      GetInfo() => _getInfo(action, oldState),
-      Close() => _close(action, oldState),
-      ChangeState() => _changeState(action, oldState),
+      InitialAction() => _initial(action, oldState),
+      GetInfoAction() => _getInfo(action, oldState),
+      CloseAction() => _close(action, oldState),
+      ChangeStateAction() => _changeState(action, oldState),
     };
   }
 
-  _initial(AuthAction action, AuthState? oldState) {
+  _initial(InitialAction action, AuthState? oldState) {
     return InitialState();
   }
 
-  _getInfo(AuthAction action, AuthState? oldState) {
-    Future.delayed(const Duration(microseconds: 1000), () {
-      dispatch(ChangeState("name"));
+  _getInfo(GetInfoAction action, AuthState? oldState) {
+    Future.delayed(const Duration(seconds: 1), () {
+      dispatch(ChangeStateAction("name"));
     });
     return oldState;
   }
 
-  _close(AuthAction action, AuthState? oldState) {
+  _close(CloseAction action, AuthState? oldState) {
     return const ErrorState(reason: "Конец ");
   }
 
-  _changeState(AuthAction action, AuthState? oldState) {
-    return const BaseState(name: "name");
-  }
-
-  AuthStore() {
-    print('init');
-    dispatch(Initial());
+  _changeState(ChangeStateAction action, AuthState? oldState) {
+    return BaseState(name: action.name);
   }
 }
 
@@ -57,21 +52,21 @@ class ErrorState implements AuthState {
 ///Еффекты
 sealed class AuthEffect extends MarketEffect {}
 
-class ShowMess implements AuthEffect {}
+class ShowMessEffect implements AuthEffect {}
 
-class ShowError implements AuthEffect {}
+class ShowErrorEffect implements AuthEffect {}
 
 ///Действия
 sealed class AuthAction extends MarketAction {}
 
-class Initial implements AuthAction {}
+class InitialAction implements AuthAction {}
 
-class GetInfo implements AuthAction {}
+class GetInfoAction implements AuthAction {}
 
-class Close implements AuthAction {}
+class CloseAction implements AuthAction {}
 
-class ChangeState implements AuthAction {
+class ChangeStateAction implements AuthAction {
   final String name;
 
-  ChangeState(this.name);
+  ChangeStateAction(this.name);
 }
