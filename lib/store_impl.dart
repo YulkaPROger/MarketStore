@@ -29,9 +29,9 @@ abstract class StoreImpl<S extends MarketState, A extends MarketAction,
   }
 
   StoreImpl() {
-    _action.stream.listen((action) {
+    _action.stream.listen((action) async {
       log("listen action $action", name: "MarketStore");
-      _dispatchAction(action);
+      await _dispatchAction(action);
     });
   }
 
