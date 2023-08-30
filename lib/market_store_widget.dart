@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:market_store/store.dart';
+
+part 'market_state_widget.dart';
+part 'market_effect_widget.dart';
+
+typedef MarketEffectCallback <E extends MarketEffect> = void Function(E);
+typedef MarketStateCallback <S extends MarketState> = Widget? Function(S);
 
 class MarketStateScope<T> extends InheritedWidget {
   final T store;

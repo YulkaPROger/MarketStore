@@ -1,6 +1,4 @@
-import 'dart:async';
-import 'dart:developer';
-import 'package:market_store/store.dart';
+part of 'store.dart';
 
 abstract class StoreImpl<S extends MarketState, A extends MarketAction,
     E extends MarketEffect> extends MarketStore<S, A, E> {
@@ -13,57 +11,46 @@ abstract class StoreImpl<S extends MarketState, A extends MarketAction,
 
   @override
   Stream<E> observeEffect() {
-    // print('observeEffect');
     return _effect.stream;
   }
 
   @override
   Stream<S?> observeState() {
-    // print('observeState');
     return _state.stream;
   }
 
   @override
   dispatch(A newAction) {
-    // print('dispatch $newAction');
     _action.add(newAction);
   }
 
   sendEffect(E newEffect) {
-    print('sendEffect $newEffect');
     _effect.add(newEffect);
   }
 
   StoreImpl() {
-    // print('initial listen stream');
     _action.stream.listen((action) {
-      // print('listen action $action');
       log("listen action $action", name: "MarketStore");
       _dispatchAction(action);
     });
   }
 
   _dispatchAction(A action) async {
-    // print("start action $action");
     log("start action $action", name: "MarketStore");
     try {
 
       final newState = doAction(action, _oldState);
-      // print('new state $newState');
 
       if (newState != _oldState) {
-        // print("end newState: $newState");
         log("end newState: $newState", name: "MarketStore");
 
         _state.add(newState);
         _oldState = newState;
       } else {
-        // print("newState equals oldState");
         log("newState equals oldState", name: "MarketStore");
       }
 
     } catch (_) {
-      // print("failure dispatch $action");
       log("failure dispatch $action", name: "MarketStore");
     }
   }

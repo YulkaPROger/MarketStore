@@ -1,12 +1,11 @@
 library market_store;
-
 import 'dart:async';
+import 'dart:developer';
+
+part 'store_impl.dart';
 
 abstract class MarketStore<S extends MarketState, A extends MarketAction,
     E extends MarketEffect>  {
-  // StreamController<S> get state;
-  // StreamController<E> get effect;
-  // StreamController<A> get action;
 
   Stream<S?> observeState();
 

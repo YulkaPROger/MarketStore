@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:market_store/store.dart';
-
-import 'market_store_widget.dart';
-
-typedef MarketStateCallback<E extends MarketEffect> = void Function(E);
+part of 'market_store_widget.dart';
 
 class ObserveEffectMarketScope<M extends MarketStore> extends StatelessWidget {
-  final MarketStateCallback onChangeEffect;
+  final MarketEffectCallback onChangeEffect;
 
   const ObserveEffectMarketScope({super.key, required this.onChangeEffect});
 

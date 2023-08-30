@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:market_store/store.dart';
-
-import 'market_store_widget.dart';
-
-typedef MarketStateCallback<S extends MarketState> = Widget? Function(S);
+part of 'market_store_widget.dart';
 
 class ObserveStateMarketScope<M extends MarketStore> extends StatelessWidget {
   final MarketStateCallback onChangeState;
