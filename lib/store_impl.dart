@@ -4,7 +4,7 @@ abstract class StoreImpl<S extends MarketState, A extends MarketAction,
     E extends MarketEffect> extends MarketStore<S, A, E> {
   final StreamController<S?> _state = StreamController.broadcast();
 
-  final StreamController<A> _action = StreamController(sync: true);
+  final StreamController<A> _action = StreamController();
 
   final StreamController<E> _effect = StreamController.broadcast();
   S? _oldState;
