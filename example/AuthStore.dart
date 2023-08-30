@@ -1,5 +1,4 @@
 import 'package:market_store/store.dart';
-import 'package:market_store/store_impl.dart';
 
 ///СТОР
 class AuthStore extends StoreImpl<AuthState, AuthAction, AuthEffect> {

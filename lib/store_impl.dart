@@ -29,16 +29,15 @@ abstract class StoreImpl<S extends MarketState, A extends MarketAction,
   }
 
   StoreImpl() {
-    _action.stream.listen((action) async {
+    _action.stream.listen((action) {
       log("listen action $action", name: "MarketStore");
-      await _dispatchAction(action);
+      _dispatchAction(action);
     });
   }
 
   _dispatchAction(A action) async {
     log("start action $action", name: "MarketStore");
     try {
-
       final newState = doAction(action, _oldState);
 
       if (newState != _oldState) {
@@ -49,12 +48,10 @@ abstract class StoreImpl<S extends MarketState, A extends MarketAction,
       } else {
         log("newState equals oldState", name: "MarketStore");
       }
-
     } catch (_) {
       log("failure dispatch $action", name: "MarketStore");
     }
   }
 
   S? doAction(A action, S? oldState);
-
 }
