@@ -1,7 +1,7 @@
 import 'package:market_store/store.dart';
 
 ///СТОР
-class AuthStore extends StoreImpl<AuthState, AuthAction, AuthEffect> {
+class AuthStore extends MarketStoreImpl<AuthState, AuthAction, AuthEffect> {
   @override
   AuthState? doAction(AuthAction action, AuthState? oldState) {
     return switch (action) {

@@ -1,6 +1,6 @@
 part of 'store.dart';
 
-abstract class StoreImpl<S extends MarketState, A extends MarketAction,
+abstract class MarketStoreImpl<S extends MarketState, A extends MarketAction,
     E extends MarketEffect> extends MarketStore<S, A, E> {
   final StreamController<S?> _state = StreamController.broadcast();
 
@@ -28,9 +28,8 @@ abstract class StoreImpl<S extends MarketState, A extends MarketAction,
     _effect.add(newEffect);
   }
 
-  StoreImpl() {
+  MarketStoreImpl() {
     _action.stream.listen((action) {
-      log("listen action $action", name: "MarketStore");
       _dispatchAction(action);
     });
   }
