@@ -48,7 +48,7 @@ class CleanerStore<S, A, E>
   }
 
   _close(CloseAction action, CleanerState? oldState) {
-    sendEffect(ShowMessEffect("Приплыли"));
+    sendEffect(ShowMessEffect(Constants.sailed));
     return ErrorState(reason: Constants.cancel);
   }
 
@@ -63,9 +63,7 @@ class CleanerStore<S, A, E>
   }
 
   _showMess(ShowMessAction action, CleanerState? oldState) {
-    Future.delayed(const Duration(seconds: 5), () {
-      sendEffect(ShowMessEffect(action.mess));
-    });
+    sendEffect(ShowMessEffect(action.mess));
     return oldState;
   }
 }

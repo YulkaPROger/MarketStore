@@ -65,4 +65,24 @@ void main() {
       );
     },
   );
+
+  test(
+    'Прослушка еффектов стора',
+        () {
+      final cleanerStore = CleanerStore();
+      cleanerStore.dispatch(ShowMessAction(Constants.sailed));
+      final Stream<CleanerEffect?> stream = cleanerStore.observeEffect().stream;
+
+      expect(
+        stream,
+        emitsInOrder(
+          [
+            predicate<ShowMessEffect>((s){
+              return s.mess == Constants.sailed;
+            }),
+          ],
+        ),
+      );
+    },
+  );
 }
