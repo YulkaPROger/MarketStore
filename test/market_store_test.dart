@@ -2,16 +2,10 @@ import 'dart:async';
 
 import 'package:test/test.dart';
 
+import 'mock_store/constants.dart';
 import 'mock_store/mock_store.dart';
 
 void main() {
-  // test("Рабочий тест на потоках", () {
-  //   final testSubject = StreamController<int>();
-  //
-  //   testSubject.add(1);
-  //
-  //   expect(testSubject.stream, emitsInOrder([1]));
-  // });
   test(
     'Инициализация стора без состояния',
     () {
@@ -63,9 +57,9 @@ void main() {
           [
             predicate<BaseState>((s) => s.runtimeType == BaseState),
             predicate<BaseState>((s){
-              return s.vacuumCleaner.charge == 500 && !s.vacuumCleaner.isFull;
+              return s.vacuumCleaner.charge == Constants.charge && !s.vacuumCleaner.isFull;
             }),
-            predicate<ErrorState>((s) => s.reason == "конец"),
+            predicate<ErrorState>((s) => s.reason == Constants.cancel),
           ],
         ),
       );

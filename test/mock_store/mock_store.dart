@@ -3,6 +3,7 @@ import 'package:market_store/store.dart';
 import '../models/flat.dart';
 import '../models/room.dart';
 import '../models/vacuum_cleaner.dart';
+import 'constants.dart';
 
 class CleanerStore<S, A, E>
     extends MarketStoreImpl<CleanerState, CleanerAction, CleanerEffect> {
@@ -38,8 +39,8 @@ class CleanerStore<S, A, E>
 
   _getInfo(GetInfoAction action, CleanerState? oldState) {
     if (oldState is BaseState) {
-      final vacuumCleaner =
-          oldState.vacuumCleaner.copyWith(isFull: false, charge: 500);
+      final vacuumCleaner = oldState.vacuumCleaner
+          .copyWith(isFull: false, charge: Constants.charge);
       return oldState.copyWith(loaded: true, vacuumCleaner: vacuumCleaner);
     } else {
       return oldState;
@@ -48,7 +49,7 @@ class CleanerStore<S, A, E>
 
   _close(CloseAction action, CleanerState? oldState) {
     sendEffect(ShowMessEffect("Приплыли"));
-    return const ErrorState(reason: "конец");
+    return ErrorState(reason: Constants.cancel);
   }
 
   _changeState(ChangeStateCleanerAction action, CleanerState? oldState) {
