@@ -15,9 +15,7 @@ void main() {
       expect(
         stream,
         emitsInOrder(
-          [
-            // predicate<Null>((s) => s.runtimeType == BaseState),
-          ],
+          [],
         ),
       );
     },
@@ -43,7 +41,7 @@ void main() {
 
   test(
     'Последовательность стейтов = BaseState, BaseState c зарядом 500, '
-        'и isEmpty = false, а затем ErrorState',
+    'и isEmpty = false, а затем ErrorState',
     () {
       final cleanerStore = CleanerStore();
       cleanerStore.dispatch(InitialAction());
@@ -56,8 +54,9 @@ void main() {
         emitsInOrder(
           [
             predicate<BaseState>((s) => s.runtimeType == BaseState),
-            predicate<BaseState>((s){
-              return s.vacuumCleaner.charge == Constants.charge && !s.vacuumCleaner.isFull;
+            predicate<BaseState>((s) {
+              return s.vacuumCleaner.charge == Constants.charge &&
+                  !s.vacuumCleaner.isFull;
             }),
             predicate<ErrorState>((s) => s.reason == Constants.cancel),
           ],
@@ -68,7 +67,7 @@ void main() {
 
   test(
     'Прослушка еффектов стора',
-        () {
+    () {
       final cleanerStore = CleanerStore();
       cleanerStore.dispatch(ShowMessAction(Constants.sailed));
       final Stream<CleanerEffect?> stream = cleanerStore.observeEffect().stream;
@@ -77,7 +76,7 @@ void main() {
         stream,
         emitsInOrder(
           [
-            predicate<ShowMessEffect>((s){
+            predicate<ShowMessEffect>((s) {
               return s.mess == Constants.sailed;
             }),
           ],
