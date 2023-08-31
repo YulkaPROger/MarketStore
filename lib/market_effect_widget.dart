@@ -2,8 +2,9 @@ part of 'market_store_widget.dart';
 
 class ObserveEffectMarketScope<M extends MarketStore> extends StatelessWidget {
   final MarketEffectCallback onChangeEffect;
+  final Widget child;
 
-  const ObserveEffectMarketScope({super.key, required this.onChangeEffect});
+  const ObserveEffectMarketScope({super.key, required this.onChangeEffect, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class ObserveEffectMarketScope<M extends MarketStore> extends StatelessWidget {
         if (snapshot.data != null) {
           onChangeEffect(snapshot.data!);
         }
-        return const SizedBox.shrink();
+        return child;
       },
     );
   }

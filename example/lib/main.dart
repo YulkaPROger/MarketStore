@@ -6,7 +6,6 @@ import 'package:example/widgets/progress_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:market_store/market_store_widget.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -44,50 +43,50 @@ class MyHomePage extends StatelessWidget {
 
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("title"),
-      ),
-      key: scaffoldKey,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            ObserveEffectMarketScope<CleanerStore>(
-              onChangeEffect: (effect) {
-                if (effect is ShowMessEffect) {
-                  _showSnackBar(context, effect);
-                }
-              },
-            ),
-            ObserveStateMarketScope<CleanerStore>(
-              onChangeState: (state) {
-                switch (state) {
-                  case BaseState():
-                    return BaseStateWidget(
-                      state: state,
-                    );
-                  case ErrorState():
-                    return ErrorStateWidget(state: state, scope: scope);
-                }
-                return null;
-              },
-            ),
-            ObserveStateMarketScope<CleanerStore>(
-              onChangeState: (state) {
-                if (state is BaseState) {
-                  if (state.loaded) {
-                    return const ProgressWidget();
-                  }
-                }
-                return null;
-              },
-            ),
-          ],
+    return ObserveEffectMarketScope<CleanerStore>(
+      onChangeEffect: (effect) {
+        if (effect is ShowMessEffect) {
+          _showSnackBar(context, effect);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text("title"),
         ),
+        key: scaffoldKey,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              ObserveStateMarketScope<CleanerStore>(
+                onChangeState: (state) {
+                  switch (state) {
+                    case BaseState():
+                      return BaseStateWidget(
+                        state: state,
+                      );
+                    case ErrorState():
+                      return ErrorStateWidget(state: state, scope: scope);
+                  }
+                  return null;
+                },
+              ),
+              ObserveStateMarketScope<CleanerStore>(
+                onChangeState: (state) {
+                  if (state is BaseState) {
+                    if (state.loaded) {
+                      return const ProgressWidget();
+                    }
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: const Buttons(),
       ),
-      floatingActionButton: const Buttons(),
     );
   }
 
