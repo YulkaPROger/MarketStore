@@ -66,7 +66,7 @@ void main() {
   );
 
   test(
-    'Прослушка еффектов стора',
+    'Прослушка еффекта стора',
     () {
       final cleanerStore = CleanerStore();
       cleanerStore.dispatch(ShowMessAction(Constants.sailed));
@@ -76,6 +76,34 @@ void main() {
         stream,
         emitsInOrder(
           [
+            predicate<ShowMessEffect>((s) {
+              return s.mess == Constants.sailed;
+            }),
+          ],
+        ),
+      );
+    },
+  );
+
+  test(
+    'Прослушка нескольких еффектов стора',
+        () {
+      final cleanerStore = CleanerStore();
+      cleanerStore.dispatch(ShowMessAction(Constants.sailed));
+      cleanerStore.dispatch(ShowMessAction(Constants.loremIpsum));
+      cleanerStore.dispatch(ShowMessAction(Constants.sailed));
+      final Stream<CleanerEffect?> stream = cleanerStore.observeEffect().stream;
+
+      expect(
+        stream,
+        emitsInOrder(
+          [
+            predicate<ShowMessEffect>((s) {
+              return s.mess == Constants.sailed;
+            }),
+            predicate<ShowMessEffect>((s) {
+              return s.mess == Constants.loremIpsum;
+            }),
             predicate<ShowMessEffect>((s) {
               return s.mess == Constants.sailed;
             }),
