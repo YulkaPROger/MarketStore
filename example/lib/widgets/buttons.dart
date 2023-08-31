@@ -79,7 +79,7 @@ class Buttons extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            scope.dispatch(CloseAction());
+            scope.dispatch(ShowMessAction("mess"));
           },
           style: buttonStyle,
           child: const Text(

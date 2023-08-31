@@ -1,7 +1,7 @@
-import 'package:market_store/store.dart';
 import 'package:example/models/flat.dart';
 import 'package:example/models/room.dart';
 import 'package:example/models/vacuum_cleaner.dart';
+import 'package:market_store/store.dart';
 
 part 'actions.dart';
 
@@ -13,7 +13,6 @@ part 'states.dart';
 
 class CleanerStore<S, A, E>
     extends MarketStoreImpl<CleanerState, CleanerAction, CleanerEffect> {
-
   // CleanerStore(){
   //   dispatch(InitialAction());
   // }
@@ -79,7 +78,9 @@ class CleanerStore<S, A, E>
   }
 
   _showMess(ShowMessAction action, CleanerState? oldState) {
-    sendEffect(ShowMessEffect(action.mess));
+    Future.delayed(const Duration(seconds: 5), () {
+      sendEffect(ShowMessEffect(action.mess));
+    });
     return oldState;
   }
 }

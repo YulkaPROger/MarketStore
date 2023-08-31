@@ -7,9 +7,9 @@ part 'store_impl.dart';
 abstract class MarketStore<S extends MarketState, A extends MarketAction,
     E extends MarketEffect>  {
 
-  Stream<S?> observeState();
+  StreamController<S?> observeState();
 
-  Stream<E> observeEffect();
+  StreamController<E> observeEffect();
 
   dispatch(A newAction);
 }

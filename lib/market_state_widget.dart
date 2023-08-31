@@ -9,7 +9,7 @@ class ObserveStateMarketScope<M extends MarketStore> extends StatelessWidget {
   Widget build(BuildContext context) {
     final M scope = MarketStateScope.of<M>(context).store;
     return StreamBuilder(
-      stream: scope.observeState(),
+      stream: scope.observeState().stream,
       builder: (context, snapshot) {
         const emptyWidget = SizedBox.shrink();
         return snapshot.data != null

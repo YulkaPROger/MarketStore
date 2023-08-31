@@ -10,13 +10,13 @@ abstract class MarketStoreImpl<S extends MarketState, A extends MarketAction,
   S? _oldState;
 
   @override
-  Stream<E> observeEffect() {
-    return _effect.stream;
+  StreamController<E> observeEffect() {
+    return _effect;
   }
 
   @override
-  Stream<S?> observeState() {
-    return _state.stream;
+  StreamController<S?> observeState() {
+    return _state;
   }
 
   @override
