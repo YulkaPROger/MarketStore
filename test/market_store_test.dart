@@ -66,6 +66,24 @@ void main() {
   );
 
   test(
+    'Отсутсвие еффектов стора',
+        () {
+      final cleanerStore = CleanerStore();
+      cleanerStore.dispatch(InitialAction());
+      cleanerStore.dispatch(GetInfoAction());
+      cleanerStore.dispatch(CloseAction());
+      final Stream<CleanerEffect?> stream = cleanerStore.observeEffect().stream;
+
+      expect(
+        stream,
+        emitsInOrder(
+          [],
+        ),
+      );
+    },
+  );
+
+  test(
     'Прослушка еффекта стора',
     () {
       final cleanerStore = CleanerStore();
