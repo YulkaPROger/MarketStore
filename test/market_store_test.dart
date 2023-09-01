@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:test/test.dart';
 
-import 'mock_store/constants.dart';
-import 'mock_store/mock_store.dart';
+import 'stub_store/constants.dart';
+import 'stub_store/stub_store.dart';
 
 void main() {
   test(
