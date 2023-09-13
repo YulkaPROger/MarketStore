@@ -1,23 +1,28 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:market_store/store.dart';
 
-part 'market_state_widget.dart';
 part 'market_effect_widget.dart';
 
-typedef MarketEffectCallback <E extends MarketEffect> = void Function(E);
-typedef MarketStateCallback <S extends MarketState> = Widget? Function(S);
+part 'market_state_widget.dart';
+
+typedef MarketEffectCallback<E extends MarketEffect> = void Function(E);
+typedef MarketStateCallback<S extends MarketState> = Widget? Function(S);
 
 class MarketStateScope<T> extends InheritedWidget {
   final T store;
 
-  const MarketStateScope({
+  MarketStateScope({
     super.key,
     required this.store,
     required Widget child,
-  }) : super(child: child);
+    MarketAction? initialState,
+  }) : super(child: child) {
+    if (initialState != null) {
+      if (store is MarketStore) {
+        (store as MarketStore).dispatch(initialState);
+      }
+    }
+  }
 
   static MarketStateScope of<T>(BuildContext context) {
     final result = maybeOf<T>(context);
