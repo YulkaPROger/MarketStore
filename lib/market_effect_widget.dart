@@ -16,7 +16,9 @@ class ObserveEffectMarketScope<M extends MarketStore> extends StatelessWidget {
       stream: scope.observeEffect().stream.skipWhile((_) => !isForeground),
       builder: (context, snapshot) {
         if (snapshot.data != null) {
+          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
             onChangeEffect(snapshot.data!);
+          });
         }
         return child;
       },

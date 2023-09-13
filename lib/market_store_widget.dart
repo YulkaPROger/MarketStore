@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:market_store/store.dart';
 
 part 'market_effect_widget.dart';

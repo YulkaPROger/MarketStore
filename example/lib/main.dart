@@ -101,8 +101,8 @@ class MyHomePage extends StatelessWidget {
         onPressed: () {},
       ),
     );
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    });
+
   }
 }
